@@ -1,0 +1,32 @@
+<h1>Agregar Película</h1>
+<form action="/movies/add" method="POST">
+    <div class="mb-3">
+        <label for="title" class="form-label">Título</label>
+        <input type="text" name="title" id="title" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="director" class="form-label">Director</label>
+        <input type="text" name="director" id="director" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="releaseYear" class="form-label">Año de Estreno</label>
+        <input type="number" name="releaseYear" id="releaseYear" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="genre" class="form-label">Género</label>
+        <input type="text" name="genre" id="genre" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="synopsis" class="form-label">Sinopsis</label>
+        <textarea name="synopsis" id="synopsis" class="form-control" required></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="duration" class="form-label">Duración (minutos)</label>
+        <input type="number" name="duration" id="duration" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="coverImage" class="form-label">URL de la Imagen de Portada</label>
+        <input type="text" name="coverImage" id="coverImage" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Agregar Película</button>
+</form>

@@ -1,0 +1,47 @@
+<!-- views/movies/details.ejs -->
+<h1><%= movie.title %></h1>
+<p><strong>Director:</strong> <%= movie.director %></p>
+<p><strong>Año:</strong> <%= movie.releaseYear %></p>
+<p><strong>Género:</strong> <%= movie.genre %></p>
+<p><strong>Puntuación:</strong> <%= movie.rating.toFixed(1) %> / 5</p>
+
+<% if (user) { %>
+    <form action="<%= isFavorite ? `/favorites/${movie._id}?_method=DELETE` : '/favorites' %>" method="POST">
+        <input type="hidden" name="movieId" value="<%= movie._id %>">
+        <button type="submit" class="btn <%= isFavorite ? 'btn-danger' : 'btn-primary' %>">
+            <%= isFavorite ? 'Quitar de Favoritos' : 'Agregar a Favoritos' %>
+        </button>
+    </form>
+<% } %>
+
+<h2>Reseñas</h2>
+<ul>
+    <% movie.reviews.forEach(review => { %>
+        <li>
+            <p><strong>Usuario:</strong> <%= review.user.name %></p>
+            <p><strong>Puntuación:</strong> <%= review.rating %> / 5</p>
+            <p><strong>Comentario:</strong> <%= review.comment %></p>
+            <% if (user && (review.user._id.toString() === user.id || user.role === 'administrador')) { %>
+                <form action="/reviews/<%= review._id %>?_method=DELETE" method="POST">
+                    <button type="submit" class="btn btn-danger btn-sm">Eliminar Reseña</button>
+                </form>
+            <% } %>
+        </li>
+    <% }); %>
+</ul>
+
+<% if (user) { %>
+    <h2>Deja tu Reseña</h2>
+    <form action="/reviews" method="POST">
+        <input type="hidden" name="movieId" value="<%= movie._id %>">
+        <div class="mb-3">
+            <label for="rating" class="form-label">Puntuación (1-5)</label>
+            <input type="number" name="rating" id="rating" class="form-control" min="1" max="5" required>
+        </div>
+        <div class="mb-3">
+            <label for="comment" class="form-label">Comentario</label>
+            <textarea name="comment" id="comment" class="form-control" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar Reseña</button>
+    </form>
+<% } %>

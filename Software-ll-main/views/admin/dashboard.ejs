@@ -1,0 +1,140 @@
+<%- include('../partials/header') %>
+
+<div class="container mt-4">
+    <h1 class="mb-4">Dashboard Administrativo</h1>
+
+    <!-- Estadísticas Generales -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Total Usuarios</h5>
+                    <h2 class="card-text"><%= stats.totalUsers %></h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Total Películas</h5>
+                    <h2 class="card-text"><%= stats.totalMovies %></h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-info text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Total Reseñas</h5>
+                    <h2 class="card-text"><%= stats.totalReviews %></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Películas Mejor Valoradas -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Top 5 Películas Mejor Valoradas</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Título</th>
+                                    <th>Director</th>
+                                    <th>Rating</th>
+                                    <th>Reseñas</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% stats.topMovies.forEach(movie => { %>
+                                    <tr>
+                                        <td><%= movie.title %></td>
+                                        <td><%= movie.director %></td>
+                                        <td>
+                                            <% for(let i = 0; i < 5; i++) { %>
+                                                <i class="fas fa-star<%= i < Math.round(movie.rating) ? '' : '-o' %> text-warning"></i>
+                                            <% } %>
+                                            (<%= movie.rating.toFixed(1) %>)
+                                        </td>
+                                        <td><%= movie.reviewCount %></td>
+                                    </tr>
+                                <% }); %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Usuarios Más Activos -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Top 5 Usuarios Más Activos</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Usuario</th>
+                                    <th>Reseñas</th>
+                                    <th>Favoritos</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% stats.topUsers.forEach(user => { %>
+                                    <tr>
+                                        <td><%= user.name %></td>
+                                        <td><%= user.reviewCount %></td>
+                                        <td><%= user.favoriteCount %></td>
+                                        <td><%= user.reviewCount + user.favoriteCount %></td>
+                                    </tr>
+                                <% }); %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Actividad Reciente -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Actividad Reciente</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Usuario</th>
+                            <th>Actividad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% stats.recentActivity.forEach(activity => { %>
+                            <tr>
+                                <td><%= new Date(activity.date).toLocaleString() %></td>
+                                <td><%= activity.user %></td>
+                                <td><%= activity.description %></td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Font Awesome para los íconos de estrellas -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<%- include('../partials/footer') %> 

@@ -1,0 +1,23 @@
+<h1 class="my-4">Editar Usuario</h1>
+<form action="/users/<%= user._id %>?_method=PUT" method="POST" class="mb-4">
+    <div class="mb-3">
+        <label for="name" class="form-label">Nombre</label>
+        <input type="text" name="name" id="name" class="form-control" value="<%= user.name %>" required>
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">Correo</label>
+        <input type="email" name="email" id="email" class="form-control" value="<%= user.email %>" required>
+    </div>
+    <div class="mb-3">
+        <label for="age" class="form-label">Edad</label>
+        <input type="number" name="age" id="age" class="form-control" value="<%= user.age %>" required>
+    </div>
+    <div class="mb-3">
+        <label for="role" class="form-label">Rol</label>
+        <select name="role" id="role" class="form-control" required>
+            <option value="usuario" <%= user.role === 'usuario' ? 'selected' : '' %>>Usuario</option>
+            <option value="administrador" <%= user.role === 'administrador' ? 'selected' : '' %>>Administrador</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Actualizar Usuario</button>
+</form>

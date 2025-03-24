@@ -1,0 +1,42 @@
+<form action="/users" method="POST" class="mb-4">
+    <div class="mb-3">
+        <label for="name" class="form-label">Nombre</label>
+        <input type="text" name="name" id="name" class="form-control" placeholder="Nombre" required>
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">Correo</label>
+        <input type="email" name="email" id="email" class="form-control" placeholder="Correo" required>
+    </div>
+    <div class="mb-3">
+        <label for="age" class="form-label">Edad</label>
+        <input type="number" name="age" id="age" class="form-control" placeholder="Edad" required>
+    </div>
+    <div class="mb-3">
+        <label for="role" class="form-label">Rol</label>
+        <select name="role" id="role" class="form-control" required>
+            <option value="usuario">Usuario</option>
+            <option value="administrador">Administrador</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Crear Usuario</button>
+</form>
+
+<h2>Usuarios Registrados</h2>
+<ul class="list-group">
+    <% if (users && users.length > 0) { %>
+        <% users.forEach(user => { %>
+            <li class="list-group-item">
+                <%= user.name %> - <%= user.email %> - <%= user.age %> - 
+                <span class="badge <%= user.role === 'administrador' ? 'bg-danger' : 'bg-primary' %>">
+                    <%= user.role %>
+                </span>
+                <a href="/users/<%= user._id %>/edit" class="btn btn-warning btn-sm ms-2">Editar</a>
+                <form action="/users/<%= user._id %>?_method=DELETE" method="POST" class="d-inline ms-2">
+                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                </form>
+            </li>
+        <% }); %>
+    <% } else { %>
+        <li class="list-group-item">No hay usuarios disponibles.</li>
+    <% } %>
+</ul>

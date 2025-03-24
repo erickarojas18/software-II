@@ -1,0 +1,46 @@
+<!-- views/movies/index.ejs -->
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Lista de Películas</h1>
+        <% if (user && user.role === 'administrador') { %>
+            <a href="/movies/add" class="btn btn-primary">Agregar Nueva Película</a>
+        <% } %>
+    </div>
+
+    <div class="row">
+        <% if (movies && movies.length > 0) { %>
+            <% movies.forEach(movie => { %>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= movie.title %></h5>
+                            <p class="card-text">
+                                <strong>Director:</strong> <%= movie.director %><br>
+                                <strong>Año:</strong> <%= movie.releaseYear %><br>
+                                <strong>Género:</strong> <%= movie.genre %><br>
+                                <strong>Puntuación:</strong> <%= movie.rating.toFixed(1) %> / 5
+                            </p>
+                            <div class="d-flex justify-content-between">
+                                <a href="/movies/<%= movie._id %>" class="btn btn-info">Ver Detalles</a>
+                                <% if (user && user.role === 'administrador') { %>
+                                    <div>
+                                        <a href="/movies/<%= movie._id %>/edit" class="btn btn-warning btn-sm">Editar</a>
+                                        <form action="/movies/<%= movie._id %>?_method=DELETE" method="POST" class="d-inline">
+                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar esta película?')">
+                                                Eliminar
+                                            </button>
+                                        </form>
+                                    </div>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <div class="col-12">
+                <p class="text-center">No hay películas disponibles.</p>
+            </div>
+        <% } %>
+    </div>
+</div> 

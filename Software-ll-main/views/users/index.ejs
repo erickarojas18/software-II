@@ -1,0 +1,50 @@
+<%- include('../partials/header') %>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Gestión de Usuarios</h1>
+        <a href="/admin/users/create" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Crear Nuevo Usuario
+        </a>
+    </div>
+
+    <% if (users && users.length > 0) { %>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Edad</th>
+                        <th>Rol</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% users.forEach(user => { %>
+                        <tr>
+                            <td><%= user.name %></td>
+                            <td><%= user.email %></td>
+                            <td><%= user.age %></td>
+                            <td><%= user.role %></td>
+                            <td>
+                                <a href="/admin/users/<%= user._id %>" class="btn btn-info btn-sm">Ver Detalles</a>
+                                <form action="/admin/users/<%= user._id %>?_method=DELETE" method="POST" class="d-inline">
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar este usuario?')">
+                                        Eliminar
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    <% } else { %>
+        <div class="alert alert-info">
+            No hay usuarios registrados en el sistema.
+        </div>
+    <% } %>
+</div>
+
+<%- include('../partials/footer') %> 

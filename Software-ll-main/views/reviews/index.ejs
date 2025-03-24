@@ -1,0 +1,55 @@
+<div class="container mt-4">
+    <h1 class="mb-4">Reseñas</h1>
+
+    <% if (reviews && reviews.length > 0) { %>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Película</th>
+                        <th>Usuario</th>
+                        <th>Puntuación</th>
+                        <th>Fecha</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% reviews.forEach(review => { %>
+                        <tr>
+                            <td>
+                                <% if (review.movie && review.movie.title) { %>
+                                    <%= review.movie.title %>
+                                <% } else { %>
+                                    <span class="text-muted">Película no disponible</span>
+                                <% } %>
+                            </td>
+                            <td>
+                                <% if (review.user && review.user.name) { %>
+                                    <%= review.user.name %>
+                                <% } else { %>
+                                    <span class="text-muted">Usuario no disponible</span>
+                                <% } %>
+                            </td>
+                            <td><%= review.rating %> / 5</td>
+                            <td><%= new Date(review.createdAt).toLocaleDateString() %></td>
+                            <td>
+                                <a href="/reviews/<%= review._id %>" class="btn btn-info btn-sm">Ver Detalles</a>
+                                <% if (user && user.role === 'administrador') { %>
+                                    <form action="/reviews/<%= review._id %>?_method=DELETE" method="POST" class="d-inline">
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar esta reseña?')">
+                                            Eliminar
+                                        </button>
+                                    </form>
+                                <% } %>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    <% } else { %>
+        <div class="alert alert-info">
+            No hay reseñas disponibles.
+        </div>
+    <% } %>
+</div> 
