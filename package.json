@@ -1,0 +1,26 @@
+{
+  "name": "software-ii",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node Software-ll-main/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erickarojas18/software-II.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/erickarojas18/software-II/issues"
+  },
+  "homepage": "https://github.com/erickarojas18/software-II#readme",
+  "description": "",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.12.2"
+  }
+}
